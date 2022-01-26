@@ -11,14 +11,15 @@ public class CurrentAgeOutputThread implements Runnable {
 
     @Override
     public void run() {
-        printAge();
+        printAges();
     }
 
-    private void printAge() {
+    private void printAges() {
         while (isRunning){
-            System.out.println(string);
             synchronized (this){
+
                 try {
+                    System.out.println(string);
                     wait(3000);
                 } catch (InterruptedException e){
                     e.printStackTrace();
@@ -34,6 +35,7 @@ public class CurrentAgeOutputThread implements Runnable {
     }
 
     public void setAge(String string){
+
         this.string = string;
     }
 }

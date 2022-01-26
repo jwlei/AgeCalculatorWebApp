@@ -19,7 +19,7 @@ public class FindAgeOfPerson {
         Person subject = PersonList.getPerson(pick);
 
         if (subject != null){
-            CalculateAge.calculateAge(subject.getDateOfBirth(), subject.getTimeOfBirth());
+            new CalculateAge().convertTimeDateToLdt(subject.getDateOfBirth(), subject.getTimeOfBirth());
         } else {
             System.out.println("Person not found, returning to main menu.");
         }

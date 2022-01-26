@@ -9,7 +9,7 @@ public class RunThreads {
         // Printer
         CurrentAgeOutputThread currentAgeOutPutThread = new CurrentAgeOutputThread();
         // Dialog
-        CurrentAgeInputThread currentAgeInputThread = new CurrentAgeInputThread(currentAgeOutPutThread);
+        currentAgeInputThread currentAgeInputThread = new currentAgeInputThread(currentAgeOutPutThread);
 
         new Thread(currentAgeOutPutThread).start();
         new Thread(currentAgeInputThread).start();
