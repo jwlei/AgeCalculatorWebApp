@@ -11,7 +11,7 @@ public class Calendar {
     }
 
     public LocalDate parseDate(String s) {
-        DateTimeFormatter parseCalendar = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+        DateTimeFormatter parseCalendar = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return  LocalDate.parse(s, parseCalendar);
     }
 }

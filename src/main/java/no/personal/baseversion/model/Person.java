@@ -8,6 +8,7 @@ Class for defining a person
 @param timeOfBirth
  */
 
+
 public class Person {
     private String firstName;
     private String lastName;
@@ -73,10 +74,15 @@ public class Person {
 
     @Override
     public String toString(){
-        return ("\nName: " + this.getFirstName() + "\n" +
-                "Lastname: " + this.getLastName() + "\n" +
-                "Date of birth: " + this.getDateOfBirth() + "\n" +
-                "Time of birth: " + this.getTimeOfBirth() + "\n"
-                );
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("\n");
+        if (this.getFirstName() != null) sb.append("Name: " + this.getFirstName() + "\n");
+        if (this.getLastName() != null) sb.append("Lastname: " + this.getLastName() + "\n");
+        if (this.getDateOfBirth() != null) sb.append("Date of birth: " + this.getDateOfBirth() + "\n");
+        if (this.getTimeOfBirth() != null) sb.append("Time of birth: " + this.getTimeOfBirth() + "\n");
+
+        String str = sb.toString();
+        return str;
     }
 }

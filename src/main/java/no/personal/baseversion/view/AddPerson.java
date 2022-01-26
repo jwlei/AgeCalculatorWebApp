@@ -1,6 +1,5 @@
 package no.personal.baseversion.view;
 
-import no.personal.howoldareyou.helper.Utility;
 import no.personal.baseversion.model.PersonList;
 
 import java.util.Scanner;
