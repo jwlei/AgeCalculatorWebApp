@@ -5,7 +5,7 @@ import no.personal.baseversion.model.PersonList;
 import java.util.Scanner;
 
 public class AddPerson {
-    public static void addPerson(){
+    public static void addPerson() throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
 
         String firstName;
@@ -32,13 +32,17 @@ public class AddPerson {
             bool = true;
         }
 
-        if (bool == true){
+        if (bool){
             System.out.println("Please enter your time of birth\n HH:MM:SS");
             birthTime = scanner.nextLine();
         }
 
         PersonList.addToList(firstName, lastName, birthDate, birthTime);
+        try {
+            MainMenu.mainMenu();
+        } catch (InterruptedException e){
+            throw e;
+        }
 
-        MainMenu.mainMenu();
     }
 }

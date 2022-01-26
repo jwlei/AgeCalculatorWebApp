@@ -6,7 +6,7 @@ import no.personal.baseversion.model.PersonList;
 import java.util.Scanner;
 
 public class MainMenu {
-    public static void mainMenu() {
+    public static void mainMenu() throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\n MAIN MENU ----------------------------------------------------");

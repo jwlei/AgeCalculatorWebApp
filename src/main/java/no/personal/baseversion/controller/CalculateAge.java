@@ -1,7 +1,7 @@
 package no.personal.baseversion.controller;
 
-import no.personal.baseversion.model.Calendar;
-import no.personal.baseversion.model.Clock;
+import no.personal.baseversion.Utility.ParseDateTime;
+
 
 import java.time.*;
 import java.time.temporal.ChronoUnit;
@@ -11,7 +11,7 @@ public class CalculateAge {
     private static boolean bte = false;
 
     public LocalDateTime getCurrentTime() {
-        java.time.Clock systemClock = java.time.Clock.systemDefaultZone();
+        Clock systemClock = Clock.systemDefaultZone();
         Instant instant = systemClock.instant();
         return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
     }
@@ -25,17 +25,15 @@ public class CalculateAge {
     }
 
     public LocalDateTime convertTimeDateToLdt(String s, String t) {
-        // Get present LocalDateTime
-        LocalDateTime present = getCurrentTime();
         LocalDateTime age = null;
 
         // Parse date and time
-        LocalDate a = new Calendar().parseDate(s);
-        LocalTime b = null;
+        LocalDate a = new ParseDateTime().parseDate(s);
+        LocalTime b;
 
         if (t != null) {
             setBte(true);
-            b = new Clock().parseTime(t);
+            b = new ParseDateTime().parseTime(t);
         } else {
             b = LocalTime.now();
         }
@@ -49,8 +47,7 @@ public class CalculateAge {
 
     public String calculateAge(LocalDateTime age){
         // Calculate duration from past localDateTime to PresentLocalDateTime
-
-        LocalDateTime present = getCurrentTime();
+        LocalDateTime present = new CalculateAge().getCurrentTime();
 
         long years = age.until(present, ChronoUnit.YEARS);
         age = age.plusYears(years);

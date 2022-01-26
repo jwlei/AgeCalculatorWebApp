@@ -7,7 +7,7 @@ import no.personal.baseversion.model.PersonList;
 import java.util.Scanner;
 
 public class FindAgeOfPerson {
-    public static void findPerson(){
+    public static void findPerson() throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         String pick;
 
@@ -16,7 +16,7 @@ public class FindAgeOfPerson {
         System.out.println("\nWhich person would you like to print the age of?");
         pick = scanner.nextLine();
 
-        Person subject = PersonList.getPerson(pick);
+        Person subject = new PersonList().getPerson(pick);
 
         if (subject != null){
             new CalculateAge().convertTimeDateToLdt(subject.getDateOfBirth(), subject.getTimeOfBirth());
@@ -24,6 +24,10 @@ public class FindAgeOfPerson {
             System.out.println("Person not found, returning to main menu.");
         }
 
-        MainMenu.mainMenu();
+        try {
+            MainMenu.mainMenu();
+        } catch (InterruptedException e){
+            throw e;
+        }
     }
 }

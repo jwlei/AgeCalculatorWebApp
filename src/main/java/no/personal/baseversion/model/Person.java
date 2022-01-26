@@ -19,7 +19,7 @@ public class Person {
 
     //Constructor
     public Person() {
-
+        // Empty constructor
     }
 
     public Person(String firstName, String lastName, String dateOfBirth, String timeOfBirth){

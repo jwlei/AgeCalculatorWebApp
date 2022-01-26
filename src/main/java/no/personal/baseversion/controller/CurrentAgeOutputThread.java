@@ -11,22 +11,24 @@ public class CurrentAgeOutputThread implements Runnable {
 
     @Override
     public void run() {
-        printAges();
+        printAge();
+//        new CurrentAgeOutputThread().printAges();
+
     }
 
-    private void printAges() {
+    private void printAge() {
         while (isRunning){
             synchronized (this){
+                        try {
 
-                try {
-                    System.out.println(string);
-                    wait(3000);
-                } catch (InterruptedException e){
-                    e.printStackTrace();
-                }
-            }
+                            System.out.println(string);
+                            wait(3000);
+                        } catch (InterruptedException e){
+                            e.printStackTrace();
+                        }
+                    }
         }
-        System.out.println("Exitted");
+        System.out.println("Threads has been shut down.");
     }
 
     public synchronized void quit() {
