@@ -1,28 +1,29 @@
 package no.personal.baseversion.controller;
 
-import no.personal.baseversion.model.Person;
-
-public class CurrentAgeOutputThread implements Runnable {
+public class PrinterThread implements Runnable {
     // Printer
 
     private boolean isRunning = true;
-    private String string;
+    private String age;
+    private String runningClock;
 
 
     @Override
     public void run() {
         printAge();
-//        new CurrentAgeOutputThread().printAges();
-
     }
 
     private void printAge() {
+        System.out.println("Thread: Printer is starting");
         while (isRunning){
             synchronized (this){
                         try {
+                            System.out.println("Inside: Printer thread - " + runningClock);
+                            if (age != null){
+                                System.out.println(age);
+                            }
 
-                            System.out.println(string);
-                            wait(3000);
+                            wait(5000);
                         } catch (InterruptedException e){
                             e.printStackTrace();
                         }
@@ -36,8 +37,14 @@ public class CurrentAgeOutputThread implements Runnable {
         notify();
     }
 
+    public void setRunningClock(String s){
+        this.runningClock = s;
+    }
+
     public void setAge(String string){
 
-        this.string = string;
+        this.age = string;
     }
+
+
 }

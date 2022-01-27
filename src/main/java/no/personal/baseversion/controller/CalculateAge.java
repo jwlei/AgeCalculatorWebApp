@@ -10,12 +10,6 @@ import java.time.temporal.ChronoUnit;
 public class CalculateAge {
     private static boolean bte = false;
 
-    public LocalDateTime getCurrentTime() {
-        Clock systemClock = Clock.systemDefaultZone();
-        Instant instant = systemClock.instant();
-        return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
-    }
-
     public static boolean isBte() {
         return bte;
     }
@@ -25,7 +19,7 @@ public class CalculateAge {
     }
 
     public LocalDateTime convertTimeDateToLdt(String s, String t) {
-        LocalDateTime age = null;
+        LocalDateTime age;
 
         // Parse date and time
         LocalDate a = new ParseDateTime().parseDate(s);
@@ -47,7 +41,7 @@ public class CalculateAge {
 
     public String calculateAge(LocalDateTime age){
         // Calculate duration from past localDateTime to PresentLocalDateTime
-        LocalDateTime present = new CalculateAge().getCurrentTime();
+        LocalDateTime present = LocalDateTime.now();
 
         long years = age.until(present, ChronoUnit.YEARS);
         age = age.plusYears(years);

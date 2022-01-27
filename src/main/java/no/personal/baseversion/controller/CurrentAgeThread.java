@@ -6,20 +6,21 @@ import no.personal.baseversion.model.PersonList;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+import static java.lang.Thread.sleep;
 
 
-public class currentAgeInputThread implements Runnable {
+public class CurrentAgeThread implements Runnable {
     //Input
-    private final CurrentAgeOutputThread currentAgeOutPutThread;
+    private PrinterThread printerThread;
     private Person subject;
     private String input;
+
 
     // Find the person to calculate age from
     public Person findSubject(String input){
         subject = new PersonList().getPerson(input);
         return subject;
     }
-
 
 
     public String updateSubjectAge(Person subject){
@@ -30,14 +31,15 @@ public class currentAgeInputThread implements Runnable {
 
     // TODO: Maybe delete.
     public String printAge(String s){
-       String o = updateSubjectAge(findSubject(s));
-       return o;
+       return updateSubjectAge(findSubject(s));
     }
 
 
-    public currentAgeInputThread(CurrentAgeOutputThread currentAgeOutPutThread) {
-        this.currentAgeOutPutThread = currentAgeOutPutThread;
+    public CurrentAgeThread(PrinterThread printerThread) {
+        this.printerThread = printerThread;
     }
+
+
     // TODO: Fix method not updating the object
     @Override
     public void run() {
@@ -46,13 +48,14 @@ public class currentAgeInputThread implements Runnable {
         while ((input = scanner.nextLine()) != null
             && !input.equalsIgnoreCase("quit")) {
 
-            //currentAgeOutPutThread.setAge(printAge(updateSubjectAge(findSubject(input))));
-
-
-            currentAgeOutPutThread.setAge(printAge(input));
-
+            try {
+                printerThread.setAge(printAge(input));
+                sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         System.out.println("Shutting down ...");
-        currentAgeOutPutThread.quit();
+        printerThread.quit();
     }
 }

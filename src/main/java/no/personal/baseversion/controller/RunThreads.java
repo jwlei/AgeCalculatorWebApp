@@ -7,16 +7,21 @@ public class RunThreads {
 
 
         // Printer
-        CurrentAgeOutputThread currentAgeOutPutThread = new CurrentAgeOutputThread();
+        PrinterThread printerThread = new PrinterThread();
         // Setting what to print
-        CurrentAgeInputThread currentAgeInputThread = new CurrentAgeInputThread(currentAgeOutPutThread);
+        CurrentAgeThread currentAgeThread = new CurrentAgeThread(printerThread);
+        // Starting a ticking clock
+        ClockThread clock = new ClockThread(printerThread);
 
-        Thread x = new Thread(currentAgeOutPutThread);
-        Thread y = new Thread(currentAgeInputThread);
+
+        Thread x = new Thread(printerThread);
+        Thread y = new Thread(currentAgeThread);
+        Thread z = new Thread(clock);
 
         x.start();
         y.start();
-        y.join();
+        z.start();
+
 
 
 
