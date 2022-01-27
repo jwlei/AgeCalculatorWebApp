@@ -13,7 +13,7 @@ public class MainMenu {
         System.out.println("1. Print the available list of persons to calculate the age on");
         System.out.println("2. Find age of someone in the list.");
         System.out.println("3. Add yourself to the list.");
-        System.out.println("4. Get a continously updating age of a person.");
+        System.out.println("4. Get a continuously updating age of a person.");
         System.out.println("5. Exit");
         System.out.println("\n Input number for the desired choice.");
         System.out.println("--------------------------------------------------------------");
@@ -39,10 +39,6 @@ public class MainMenu {
                 System.out.println("Write the name of the person you want to\ncontinously update the age of:");
                 PersonList.printNames();
                 RunThreads.runThreads();
-
-
-
-
                 break;
 
             case 5: // Exit the program

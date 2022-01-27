@@ -11,7 +11,7 @@ public class Main {
         //Run the method addPersons to initialize and populate the list.
         PersonList.addPersons();
         MainMenu.mainMenu();
-        // Test
+
     }
 }
 

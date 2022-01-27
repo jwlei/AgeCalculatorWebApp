@@ -9,6 +9,8 @@ import java.time.temporal.ChronoUnit;
 
 public class CalculateAge {
     private static boolean bte = false;
+    private static LocalDateTime currentTimeFromThread;
+    private volatile LocalDateTime present;
 
     public static boolean isBte() {
         return bte;
@@ -16,6 +18,10 @@ public class CalculateAge {
 
     public static void setBte(boolean bte) {
         CalculateAge.bte = bte;
+    }
+
+    public static void setCurrentTimeFromThread(LocalDateTime currentTimeFromThread) {
+        CalculateAge.currentTimeFromThread = currentTimeFromThread;
     }
 
     public LocalDateTime convertTimeDateToLdt(String s, String t) {
@@ -37,11 +43,14 @@ public class CalculateAge {
 
         return age;
     }
-
+    public void setPresent(){
+//        present = new ClockThread().getTime();
+    }
 
     public String calculateAge(LocalDateTime age){
         // Calculate duration from past localDateTime to PresentLocalDateTime
-        LocalDateTime present = LocalDateTime.now();
+        present = currentTimeFromThread;
+
 
         long years = age.until(present, ChronoUnit.YEARS);
         age = age.plusYears(years);

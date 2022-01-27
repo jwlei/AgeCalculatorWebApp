@@ -18,9 +18,10 @@ public class RunThreads {
         Thread y = new Thread(currentAgeThread);
         Thread z = new Thread(clock);
 
+        z.start();
         x.start();
         y.start();
-        z.start();
+
 
 
 

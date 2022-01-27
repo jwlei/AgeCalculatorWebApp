@@ -5,17 +5,21 @@ import java.time.LocalDateTime;
 import static java.lang.Thread.sleep;
 
 public class ClockThread implements Runnable{
-    private PrinterThread printerThread;
+    private final PrinterThread printerThread;
+    private CalculateAge calculateAge;
     private volatile boolean isRunning = true;
-    private volatile LocalDateTime time;
+    private volatile LocalDateTime time = LocalDateTime.now();
 
     public ClockThread(PrinterThread printerThread) {
         this.printerThread = printerThread;
     }
 
+    public void CalculateAge(CalculateAge calculateAge) {
+        this.calculateAge = calculateAge;
+    }
 
-    public void currentTime() {
-        time = LocalDateTime.now();
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
 
     public LocalDateTime getTime() {
@@ -34,8 +38,11 @@ public class ClockThread implements Runnable{
             synchronized (this) {
                 try {
                     time = LocalDateTime.now();
+                    // TODO: Doesnt update the time for calculateAge method
+                    CalculateAge.setCurrentTimeFromThread(time);
                     printerThread.setRunningClock(time.toString());
-                    sleep(1000);
+
+                    wait(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

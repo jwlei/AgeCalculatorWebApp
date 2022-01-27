@@ -12,21 +12,18 @@ import static java.lang.Thread.sleep;
 public class CurrentAgeThread implements Runnable {
     //Input
     private PrinterThread printerThread;
-    private Person subject;
     private String input;
 
 
     // Find the person to calculate age from
     public Person findSubject(String input){
-        subject = new PersonList().getPerson(input);
-        return subject;
+        return new PersonList().getPerson(input);
     }
 
 
     public String updateSubjectAge(Person subject){
         LocalDateTime x = new CalculateAge().convertTimeDateToLdt(subject.getDateOfBirth(), subject.getTimeOfBirth());
-        String output = new CalculateAge().calculateAge(x);
-        return output;
+        return new CalculateAge().calculateAge(x);
     }
 
     // TODO: Maybe delete.
@@ -48,12 +45,15 @@ public class CurrentAgeThread implements Runnable {
         while ((input = scanner.nextLine()) != null
             && !input.equalsIgnoreCase("quit")) {
 
-            try {
-                printerThread.setAge(printAge(input));
-                sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            synchronized (this){
+                try {
+                    printerThread.setAge(printAge(input));
+                    wait(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+
         }
         System.out.println("Shutting down ...");
         printerThread.quit();
