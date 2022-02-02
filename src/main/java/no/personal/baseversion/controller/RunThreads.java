@@ -18,13 +18,15 @@ public class RunThreads {
         Thread y = new Thread(currentAgeThread);
         Thread z = new Thread(clock);
 
-        z.start();
+
         x.start();
         y.start();
+        z.start();
 
 
-
-
+//        CurrentAgeThread currentAgeThread = new CurrentAgeThread(printerThread);
+//        Thread y = new Thread(currentAgeThread);
+//        y.start();
 
 
 

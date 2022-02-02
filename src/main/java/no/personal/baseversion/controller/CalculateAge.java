@@ -1,6 +1,8 @@
 package no.personal.baseversion.controller;
 
 import no.personal.baseversion.Utility.ParseDateTime;
+import no.personal.baseversion.model.Person;
+import no.personal.baseversion.model.PersonList;
 
 
 import java.time.*;
@@ -8,8 +10,9 @@ import java.time.temporal.ChronoUnit;
 
 
 public class CalculateAge {
-    private static boolean bte = false;
-    private static LocalDateTime currentTimeFromThread;
+    public static boolean bte = false;
+
+    static volatile LocalDateTime currentTimeFromThread;
     private volatile LocalDateTime present;
 
     public static boolean isBte() {
@@ -40,7 +43,7 @@ public class CalculateAge {
 
         // Convert to LocalDateTime
         age = a.atTime(b);
-
+        System.out.println("convertTimeDateToLdt");
         return age;
     }
     public void setPresent(){
@@ -68,6 +71,7 @@ public class CalculateAge {
         age = age.plusMinutes(minutes);
 
         long seconds = age.until(present, ChronoUnit.SECONDS);
+        System.out.println("calculateAge before SB");
 
 
         //Building the return string
@@ -89,9 +93,29 @@ public class CalculateAge {
             setBte(false);
         }
         ageString.append("old.");
+        System.out.println("calculateAge after SB");
 
         // return age to String
         System.out.println(ageString);
         return ageString.toString();
     }
+
+    // Find the person to calculate age from
+    public Person findSubject(String input){
+        return new PersonList().getPerson(input);
+    }
+
+
+    public String updateSubjectAge(Person subject){
+        LocalDateTime x = new CalculateAge().convertTimeDateToLdt(subject.getDateOfBirth(), subject.getTimeOfBirth());
+        return new CalculateAge().calculateAge(x);
+    }
+
+    // TODO: Maybe delete.
+    public String printAge(String s){
+        return updateSubjectAge(findSubject(s));
+    }
+
+
+
 }

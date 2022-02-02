@@ -1,9 +1,5 @@
 package no.personal.baseversion.controller;
 
-import no.personal.baseversion.Utility.ParseDateTime;
-
-import java.time.LocalDateTime;
-
 public class PrinterThread implements Runnable {
     // Printer
 
@@ -21,19 +17,24 @@ public class PrinterThread implements Runnable {
         System.out.println("Thread: Printer is starting");
         while (isRunning){
             synchronized (this){
+
                         try {
-                            if (runningClock != null){
-                                System.out.println("PRINTER " + runningClock);
-                            }
+                            // TODO Fix threading
 
-                            if (age != null){
-                                System.out.println(age);
-                            }
                             wait(5000);
-
-                        } catch (InterruptedException e){
-                            e.printStackTrace();
+                            } catch (InterruptedException e){
+                                e.printStackTrace();
                         }
+
+                        if (runningClock != null){
+                            System.out.println("PRINTER " + runningClock);
+                        }
+
+                        if (age != null){
+                            System.out.println(age);
+                        }
+
+
                     }
         }
         System.out.println("Threads has been shut down.");
